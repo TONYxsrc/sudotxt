@@ -1,511 +1,97 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<style>
-			table{border-collapse: collapse; border: 1px solid gray; border-width: 2px 1px 2px 1px;}
-			th{border: 1px solid gray; padding: 4px; background-color: #ddd;}
-			td{border: 1px solid gray; padding: 4px;}
-			tr:nth-child(2n){background-color: #f8f8f8;}
-			pre{border: 2px solid #d6d6d6; padding: 0px; border-radius: 3px;}
-		</style>
-	</head>
-	<body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; ">
-		<div>
-			<p class="MsoNormal" style="margin-top:24.0pt;margin-right:0cm;margin-bottom:
-24.0pt;margin-left:0cm;line-height:120%"><strong style="mso-bidi-font-weight:normal"><span style="font-size:26.0pt;mso-bidi-font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">编程项目</span></strong><strong style="mso-bidi-font-weight:normal"><span lang="EN-US" style="font-size:26.0pt;mso-bidi-font-size:11.0pt;line-height:120%;font-family:
-'Arial',sans-serif;mso-fareast-font-family:等线">-</span></strong><strong style="mso-bidi-font-weight:
-normal"><span style="font-size:26.0pt;mso-bidi-font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">检查实现使用最小和剪枝</span></strong><strong style="mso-bidi-font-weight:
-normal"><span lang="EN-US" style="font-size:26.0pt;mso-bidi-font-size:11.0pt;
-line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:等线"><br style="mso-special-character:line-break" /><br style="mso-special-character:line-break" /></span></strong><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><strong style="mso-bidi-font-weight:normal"><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">编程项目</span></strong><strong style="mso-bidi-font-weight:
-normal"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:
-'Arial',sans-serif;mso-fareast-font-family:等线">-</span></strong><strong style="mso-bidi-font-weight:
-normal"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">检查实现使用最小和剪枝</span></strong><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线"><span style="mso-spacerun:yes">&nbsp;</span></span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">任务是在</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;
-font-family:'Arial',sans-serif;mso-fareast-font-family:等线">Python</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">中构建和记录一个跳棋游戏，并写一份报告来描述你在实现中面临的五个主要问题。该程序应该呈现一个交互式跳棋，允许人类玩家和</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">AI</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">根据游戏规则移动棋子。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线"><span style="mso-spacerun:yes">&nbsp;</span></span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">请注意，标记必须能够从</span><span lang="EN-US" style="font-size:11.0pt;line-height:
-120%;font-family:'Arial',sans-serif;mso-fareast-font-family:等线">PyCharm</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">运行您的程序。具体来说，标记必须能够从您提交的</span><span lang="EN-US" style="font-size:11.0pt;
-line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:等线">zip</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">文件中导入一个</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;
-font-family:'Arial',sans-serif;mso-fareast-font-family:等线">checkers.py</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">文件，并直接在</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;
-font-family:'Arial',sans-serif;mso-fareast-font-family:等线">PyCharm</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">中运行它，而无需安装</span><span lang="EN-US" style="font-size:11.0pt;line-height:
-120%;font-family:'Arial',sans-serif;mso-fareast-font-family:等线">tkinter</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">、随机和</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;
-font-family:'Arial',sans-serif;mso-fareast-font-family:等线">time</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">以外的任何库。您不得使用只有您个人实现才能访问的任何资源。您可以使用的唯一库是</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">tkinter</span><span style="font-size:11.0pt;
-line-height:120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;
-mso-hansi-font-family:Arial;mso-bidi-font-family:Arial">、随机和</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">time</span><span style="font-size:11.0pt;
-line-height:120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;
-mso-hansi-font-family:Arial;mso-bidi-font-family:Arial">。否则，整个程序必须从头开始编写。这意味着您不能使用</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">pygame</span><span style="font-size:11.0pt;
-line-height:120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;
-mso-hansi-font-family:Arial;mso-bidi-font-family:Arial">、</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">pil</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">等库。（</span><span lang="EN-US" style="font-size:
-11.0pt;line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:
-等线">TTTg.py</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">的代码说明了需要什么。）</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线"><span style="mso-spacerun:yes">&nbsp;</span></span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">大多数标记标准都指定了要实现的功能。任何没有明确指定的东西也可以实现，但是你不会因此获得任何额外的学分。你的程序应该产生合法的游戏玩法，并使用你自己设计的</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">AI</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">和使用</span><span lang="EN-US" style="font-size:
-11.0pt;line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:
-等线">Alpha-Beta</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">剪枝的极小极大算法的实现。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线"><span style="mso-spacerun:yes">&nbsp;</span></span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><strong style="mso-bidi-font-weight:normal"><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">标记标准</span></strong><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">涵盖程序本身的</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;
-font-family:'Arial',sans-serif;mso-fareast-font-family:等线">10</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">个评估领域。这些被分成几组，如下所述。在开发程序时，您应该尽量满足尽可能多的标准。请注意，单个标记将由您的代码限定，并且可能会因遗漏、效率低下、注释或解释不足或犯的任何错误而有不同程度的扣减。您主要不是在代码的风格或质量上进行标记，而是尝试遵守常见的编程实践以避免扣减。其中包括类和方法的抽象和模块化，生成松散耦合和内聚的代码，避免代码重复，并提供合理水平的注释。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线"><span style="mso-spacerun:yes">&nbsp;</span></span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">如果你的游戏以其他方式崩溃或失败，如果有足够的证据（在代码中）表明某项功能已经满足，仍然有可能获得高达</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">50%</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">的分数。你仍然可以获得报告部分的满分，即使你的程序以其他方式崩溃或失败。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线"><span style="mso-spacerun:yes">&nbsp;</span></span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><strong style="mso-bidi-font-weight:normal"><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">游戏内部</span></strong><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l20 level1 lfo1"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">1.<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">玩法（平分</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">14</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">分）</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l10 level1 lfo2"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">交互式跳棋游戏（人类用户</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">vs.</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">计算机）：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l19 level1 lfo3"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">不同级别的</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">AI</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">巧妙，可由用户调整：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l3 level1 lfo4"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">2.<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">搜索算法（</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">16</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">分均分）</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l7 level1 lfo5"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">适当的状态表示：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l25 level1 lfo6"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">后续函数生成</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">AI</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">移动：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l12 level1 lfo7"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">极小极大评估和</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">Alpha-Beta</span><span style="font-size:11.0pt;
-line-height:120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;
-mso-hansi-font-family:Arial;mso-bidi-font-family:Arial">修剪：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l24 level1 lfo8"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">适当使用启发式方法：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l5 level1 lfo9"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">3.<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">验证移动（</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">12</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">分平分）</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l11 level1 lfo10"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">没有无效的</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">AI</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">移动：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l15 level1 lfo11"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">检查有效性的用户移动：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l21 level1 lfo12"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">拒绝无效用户移动，并给出解释：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l14 level1 lfo13"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">强制捕获：必须抓住一个捕获敌人棋子的机会。如果在同一回合中有多个捕获机会，用户可以选择采取哪一个：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l16 level1 lfo14"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">4.<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">其他特点（</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">15</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">分平分）</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l13 level1 lfo15"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">用户的多步捕捉动作：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l8 level1 lfo16"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">多步捕捉</span><span lang="EN-US" style="font-size:
-11.0pt;line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:
-等线">AI</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">的移动：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l22 level1 lfo17"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">国王转换在基线（国王的行）按照正常规则：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l1 level1 lfo18"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">杀戮君王：如果一个普通棋子设法抓住了一个国王，它会立即加冕为国王，然后当前回合结束：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l6 level1 lfo19"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">在当前游戏状态下，提供可用移动提示的帮助工具。例如，当启用时，任何包含可移动棋子的方块都可能获得不同的颜色。此功能的更复杂的实现可以使用</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">AI</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">来提出最佳移动建议：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">GUI</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">特征（每点</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">3</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">分）</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l18 level1 lfo20"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">5.<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">屏幕上显示的图形板表示：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l4 level1 lfo21"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">6.<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">界面在完成移动后正确更新显示（用户和</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">AI</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">）：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l26 level1 lfo22"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">7.<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">有用的</span><span lang="EN-US" style="font-size:
-11.0pt;line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:
-等线">GUI</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">说明：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l2 level1 lfo23"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">8.<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">鼠标交互：例如，拖放或单击以选择和放置：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l23 level1 lfo24"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">9.<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span lang="EN-US" style="font-size:11.0pt;
-line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:等线">GUI</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">适当地暂停以显示多步移动的中间腿：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l0 level1 lfo25"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">10.<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">规则的专用显示（例如，打开弹出窗口的按钮）：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线"><span style="mso-spacerun:yes">&nbsp;</span></span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><strong style="mso-bidi-font-weight:normal"><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">报告</span></strong><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">准确的功能规范，详细分析遇到的问题（</span><span lang="EN-US" style="font-size:11.0pt;
-line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:等线">25</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">分）：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">报告应检查程序的标记标准，并为每个标准指定是否已满足。对于完全满足的标准，请指定</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">“</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">满足</span><span lang="EN-US" style="font-size:
-11.0pt;line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:
-等线">”</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">并添加一段以阐明您如何满足该标准。如果您仅部分满足该标准，请指定</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">“</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">部分满足</span><span lang="EN-US" style="font-size:
-11.0pt;line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:
-等线">”</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">并添加一段以阐明这意味着什么。如果您根本不满足标准，请指定</span><span lang="EN-US" style="font-size:
-11.0pt;line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:
-等线">“</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">不满足</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;
-font-family:'Arial',sans-serif;mso-fareast-font-family:等线">”</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">报告还应该包含对你在开发程序时克服的五个最具挑战性的问题的分析。对于每个问题，写</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">100</span><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">到</span><span lang="EN-US" style="font-size:
-11.0pt;line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:
-等线">200</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">个单词来描述问题以及你为克服它所做的事情。如果你在开发程序时没有遇到任何问题，描述你认为一个不太成功的程序员会遇到的最具挑战性的问题，并建议应该做些什么来克服它们。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">报告的两个部分将用于确认您自己编写了程序，并完全理解实现的功能。它必须用您自己的话编写。英语不必完美，但必须易于理解。报告总共不应超过</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">2000</span><span style="font-size:11.0pt;
-line-height:120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;
-mso-hansi-font-family:Arial;mso-bidi-font-family:Arial">字。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线"><span style="mso-spacerun:yes">&nbsp;</span></span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><strong style="mso-bidi-font-weight:normal"><span style="font-size:11.0pt;line-height:
-120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">如何提交您的作品</span></strong><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">您应该提交一个包含两个文件的</span><span lang="EN-US" style="font-size:11.0pt;
-line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:等线">.
-zip</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">文件：</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l17 level1 lfo26"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">运行游戏的名为</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">“checkers.py”</span><span style="font-size:11.0pt;
-line-height:120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;
-mso-hansi-font-family:Arial;mso-bidi-font-family:Arial">的</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">python</span><span style="font-size:11.0pt;
-line-height:120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;
-mso-hansi-font-family:Arial;mso-bidi-font-family:Arial">文件。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;text-indent:0cm;line-height:
-120%;mso-list:l9 level1 lfo27"><span lang="EN-US" style="mso-fareast-font-family:等线;mso-fareast-theme-font:minor-latin;
-mso-bidi-font-family:等线;mso-bidi-theme-font:minor-latin;color:#3370FF"><span style="mso-list:Ignore">•<span style="font:7.0pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">一个名为</span><span lang="EN-US" style="font-size:
-11.0pt;line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:
-等线">report. pdf</span><span style="font-size:11.0pt;line-height:120%;
-mso-ascii-font-family:Arial;mso-fareast-font-family:等线;mso-hansi-font-family:
-Arial;mso-bidi-font-family:Arial">的</span><span lang="EN-US" style="font-size:
-11.0pt;line-height:120%;font-family:'Arial',sans-serif;mso-fareast-font-family:
-等线">pdf</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:
-Arial;mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">文件，其中包含您的报告。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线"><span style="mso-spacerun:yes">&nbsp;</span></span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">如果提交的文件以任何方式偏离了规定的要求，您可能会获得零分。例如，如果您提交了一个</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线">.rar</span><span style="font-size:11.0pt;
-line-height:120%;mso-ascii-font-family:Arial;mso-fareast-font-family:等线;
-mso-hansi-font-family:Arial;mso-bidi-font-family:Arial">文件，您将获得零分。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span lang="EN-US" style="font-size:11.0pt;line-height:120%;font-family:'Arial',sans-serif;
-mso-fareast-font-family:等线"><span style="mso-spacerun:yes">&nbsp;</span></span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-			<p class="MsoNormal" align="left" style="margin-top:6.0pt;margin-right:0cm;
-margin-bottom:6.0pt;margin-left:0cm;text-align:left;line-height:120%"><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">您应该通过</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;
-font-family:'Arial',sans-serif;mso-fareast-font-family:等线">Canvas</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">提交</span><span lang="EN-US" style="font-size:11.0pt;line-height:120%;
-font-family:'Arial',sans-serif;mso-fareast-font-family:等线">. zip</span><span style="font-size:11.0pt;line-height:120%;mso-ascii-font-family:Arial;
-mso-fareast-font-family:等线;mso-hansi-font-family:Arial;mso-bidi-font-family:
-Arial">文件。请记住，这是一个单独的评估，因此大学关于剽窃、冒充和串通的规定都适用。重复使用其他人（包括您的同学）开发的程序代码或从任何网络资源复制代码是不可接受的，即使您在提交前引用了它并进行了修改。</span><span lang="EN-US"><o:p></o:p></span>
-			</p>
-		</div>
-	</body>
+<!doctype html>
+<html>
+
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+  <link rel="icon" type="image/svg+xml" href="/github/frontend/public/img/logo.svg" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <link rel="apple-touch-icon" href="/github/frontend/public/img/pwa/logo-192.png">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+  <meta name="referrer" content="origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <title>BingAI - 聊天</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 百度统计 -->
+  <script>
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?22e30b5921ace714d93545f6c66e9f44";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+</head>
+
+<body>
+  <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 px-4 sm:py-12">
+    <div class="absolute inset-0 bg-slate-100 bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]">
+    </div>
+    <div
+      class="relative bg-white px-6 pb-8 pt-10 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10 lg:max-w-3xl">
+      <div class="mx-auto max-w-3xl">
+        <div class="flex justify-center">
+          <img src="https://www.bingfreedom.cn/web/img/logo.svg" class="h-24" alt="BingAI" />
+        </div>
+        <div class="mt-6 text-center text-3xl text-gray-600">聊天服务器已部署完成
+        </div>
+
+        <div class="divide-y divide-gray-300/50">
+          <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
+            <ul class="space-y-4">
+              <li class="flex items-center">
+                <svg class="h-6 w-6 flex-none fill-sky-100 stroke-sky-500 stroke-2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="11" />
+                  <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+                </svg>
+                <p class="ml-4">
+                  在www.bingfreedom.cn站点中
+                  <code class="text-sm font-bold text-sky-500">设置 => 服务选择</code>
+                  选择此站点即可
+                </p>
+              </li>
+              <li class="flex items-center">
+                <svg class="h-6 w-6 flex-none fill-sky-100 stroke-sky-500 stroke-2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="11" />
+                  <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+                </svg>
+                <p class="ml-4">
+                  资源有限付费使用请联系
+                  <a href="#" target="_blank"
+                    class="text-sky-500 hover:text-sky-600">fzp@coolyxb.com</a>
+                </p>
+              </li>
+              <li class="flex items-center">
+                <svg class="h-6 w-6 flex-none fill-sky-100 stroke-sky-500 stroke-2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="11" />
+                  <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+                </svg>
+                <p class="ml-4">
+                   6s后网站将自动跳转至BingFreedom
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="pt-8 text-base font-semibold leading-7">
+            <p class="text-gray-600 overflow-hidden">BingFreedom：<a href="https://www.bingfreedom.cn"
+                target="_blank"
+                class="text-sky-500 hover:text-sky-600">https://www.bingfreedom.cn</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  function Redirect() {
+    window.location = "https://www.bingfreedom.cn/web/#/";
+  }
+  setTimeout(Redirect, 6000);
+</script>
+
+</body>
+
 </html>
